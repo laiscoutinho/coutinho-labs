@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../footer-component/footer-component';
 import { NavbarComponent } from '../navbar-component/navbar-component';
-import { LandingPage } from '../../pages/landing-page/landing-page';
 
 @Component({
   selector: 'app-layout-component',
