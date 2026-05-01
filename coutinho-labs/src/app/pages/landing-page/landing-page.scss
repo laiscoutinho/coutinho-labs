@@ -1,0 +1,20 @@
+.landingpage-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding: var(--space-2xl);
+}
+
+.section {
+  min-height: 100vh;
+
+  scroll-snap-align: start;
+  scroll-margin-top: 120px;
+  transition: all 0.4s ease;
+}
+
+.section:target,
+.section.active {
+  opacity: 1;
+  transform: scale(1);
+}
