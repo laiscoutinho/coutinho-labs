@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importar variáveis de cores e design system */
+@use './styles/variables' as *;
+
+/* Importar tipografia */
+@use './styles/typography';
+
+/* Bootstrap Icons */
+// @import "bootstrap-icons/font/bootstrap-icons.css";
