@@ -1,0 +1,112 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.projects-wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: visible;          // ← era hidden, cortava os cards
+  position: relative;
+  perspective: 1200px;
+  perspective-origin: 50% 40%;
+}
+
+.projects-scroll {
+  flex: 1;
+  display: flex;
+  justify-content: center;   // ← centraliza o pack de cards
+  align-items: center;
+  overflow: visible;          // ← deixa os cards laterais aparecerem
+  padding: 60px 0;
+  position: relative;
+  pointer-events: none;
+}
+
+.project-card {
+  position: absolute;
+  min-width: 320px;
+  max-width: 320px;
+  padding: 20px;
+  border-radius: 16px;
+  flex-shrink: 0;
+
+  background: rgba(var(--color-branco-puro-rgb), 0.1);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity   0.5s ease;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+
+  pointer-events: all;
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--color-branco-puro-rgb), 0.3);
+  background: rgba(var(--color-branco-puro-rgb), 0.08);
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.2s;
+  z-index: 20;
+
+  &:hover:not(:disabled) {
+    background: rgba(var(--color-branco-puro-rgb), 0.18);
+  }
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 16px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(var(--color-branco-puro-rgb), 0.3);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+
+  &.active {
+    background: rgba(var(--color-branco-puro-rgb), 0.9);
+    transform: scale(1.3);
+  }
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(var(--color-indigo-rgb), 0.2);
+}
+
