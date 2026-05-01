@@ -1,0 +1,148 @@
+/**
+ * Design System - Variáveis e Mixins
+ */
+
+// === Paleta de Cores ===
+
+$color-indigo:         #3D3B8E;
+$color-indigo-rgb:      61, 59, 142;
+$color-lavanda:        #7F77DD;
+$color-lavanda-rgb:      127, 119, 221;
+$color-nevoa:          #EEEDFE;
+$color-nevoa-rgb:        238, 237, 254;
+$color-noite:          #0F0E2A;
+$color-noite-rgb:        15, 14, 42;
+$color-branco-frio:    #F7F7FC;
+$color-branco-frio-rgb:  247, 247, 252;
+
+$color-branco-puro:    #FFFFFF;
+$color-branco-puro-rgb:  255, 255, 255;
+$color-black:          #212529;
+$color-black-rgb:        33, 37, 41;
+$color-gray-light:     #F0F0F0;
+$color-gray-light-rgb:   240, 240, 240;
+$color-gray:           #6C757D;
+$color-gray-rgb:         108, 117, 125;
+
+// === Espaçamento ===
+
+$space-xs:  4px;
+$space-sm:  8px;
+$space-md:  16px;
+$space-lg:  24px;
+$space-xl:  40px;
+$space-2xl: 64px;
+
+// === Tipografia ===
+
+$font-display:  'Playfair Display', 'Lora', 'DM Serif Display', serif;
+$font-wordmark: 'Inter', 'DM Sans', 'Geist', sans-serif;
+$font-body:     'Inter', 'DM Sans', sans-serif;
+$font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+
+// === Border Radius ===
+
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-badge: 20px;
+
+// === Gradientes ===
+
+$gradient-primary:            linear-gradient(135deg, $color-noite 0%, $color-indigo 100%);
+$gradient-primary-reverse:    linear-gradient(135deg, $color-indigo 0%, $color-noite 100%);
+$gradient-primary-horizontal: linear-gradient(90deg, $color-indigo 0%, $color-lavanda 100%);
+$gradient-primary-vertical:   linear-gradient(180deg, $color-indigo 0%, $color-noite 100%);
+
+
+// === Funções ===
+
+@function rgba-indigo($opacity) {
+  @return rgba($color-indigo, $opacity);
+}
+
+@function rgba-lavanda($opacity) {
+  @return rgba($color-lavanda, $opacity);
+}
+
+
+// === Mixins ===
+
+@mixin transition-smooth($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+@mixin card-base {
+  background: $color-branco-frio;
+  border: 0.5px solid $color-gray-light;
+  border-radius: $radius-lg;
+  padding: $space-md;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+@mixin focus-primary {
+  border-color: $color-indigo !important;
+  box-shadow: 0 0 0 0.2rem rgba-indigo(0.2) !important;
+  outline: none;
+}
+
+
+// === CSS Custom Properties ===
+
+:root {
+  // Cores
+  --color-indigo:      #{$color-indigo};
+  --color-lavanda:     #{$color-lavanda};
+  --color-nevoa:       #{$color-nevoa};
+  --color-noite:       #{$color-noite};
+  --color-branco-frio: #{$color-branco-frio};
+  --color-branco-puro: #{$color-branco-puro};
+  --color-gray:        #{$color-gray};
+  --color-gray-light:  #{$color-gray-light};
+
+  // Cores RGB
+  --color-indigo-rgb:       #{$color-indigo-rgb};
+  --color-lavanda-rgb:      #{$color-lavanda-rgb};
+  --color-nevoa-rgb:        #{$color-nevoa-rgb};
+  --color-noite-rgb:        #{$color-noite-rgb};
+  --color-branco-frio-rgb:  #{$color-branco-frio-rgb};
+  --color-branco-puro-rgb:  #{$color-branco-puro-rgb};
+  --color-black-rgb:        #{$color-black-rgb};
+  --color-gray-light-rgb:   #{$color-gray-light-rgb};
+  --color-gray-rgb:         #{$color-gray-rgb};
+
+  // Espaçamento
+  --space-xs:  #{$space-xs};
+  --space-sm:  #{$space-sm};
+  --space-md:  #{$space-md};
+  --space-lg:  #{$space-lg};
+  --space-xl:  #{$space-xl};
+  --space-2xl: #{$space-2xl};
+
+  // Tipografia
+  --font-display:  #{$font-display};
+  --font-wordmark: #{$font-wordmark};
+  --font-body:     #{$font-body};
+  --font-mono:     #{$font-mono};
+
+  // Gradientes
+  --gradient-primary:            #{$gradient-primary};
+  --gradient-primary-reverse:    #{$gradient-primary-reverse};
+  --gradient-primary-horizontal: #{$gradient-primary-horizontal};
+  --gradient-primary-vertical:   #{$gradient-primary-vertical};
+
+  // Opacidades Índigo
+  --color-indigo-10: #{rgba-indigo(0.1)};
+  --color-indigo-20: #{rgba-indigo(0.2)};
+  --color-indigo-30: #{rgba-indigo(0.3)};
+  --color-indigo-50: #{rgba-indigo(0.5)};
+  --color-indigo-80: #{rgba-indigo(0.8)};
+
+  // Opacidades Lavanda
+  --color-lavanda-10: #{rgba-lavanda(0.1)};
+  --color-lavanda-20: #{rgba-lavanda(0.2)};
+  --color-lavanda-50: #{rgba-lavanda(0.5)};
+}
