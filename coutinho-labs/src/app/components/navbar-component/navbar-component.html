@@ -1,0 +1,41 @@
+<div class="navbar-container">
+  <nav class="navbar">
+
+    <div class="left-section">
+
+      <button class="back-btn" (click)="goToLandingPage()">
+        @if (isSubPage) {
+          <lucide-icon [img]="icons.ArrowLeft"></lucide-icon>
+        }
+      </button>
+
+      <div class="logo">
+        <img src="assets/logos/coutinho_labs_logo-light.png" alt="Logo" (click)="goToLandingPage()">
+
+        <div class="brand">
+          @if (!isSubPage) {
+             <p class="wordmark" (click)="goToLandingPage()">Coutinho Lab's</p>
+          }
+          @if (isSubPage) {
+            <span class="wordmark">
+              {{ currentPageLabel }}
+            </span>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <ul class="nav-links">
+      @for (item of items; track item.label) {
+        <li
+          (click)="handleClick(item)"
+          [class.active]="activeSection === item.id"
+        >
+          {{ item.label }}
+        </li>
+      }
+    </ul>
+
+  </nav>
+</div>
