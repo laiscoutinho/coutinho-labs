@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.hero-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  transform: translateY(-80px);
+}
+
+.wordmark {
+  color: var(--color-lavanda);
+  font-weight: 900;
+}
+
+.btn-call2action {
+  margin: var(--space-xl);
+  padding: var(--space-md);
+  gap: var(--space-sm);
+}
