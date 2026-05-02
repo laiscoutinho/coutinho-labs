@@ -1,12 +1,11 @@
-import {
-  Component, ElementRef, ViewChild,
-  AfterViewInit, NgZone, Output, EventEmitter
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { PROJECTS_ITEMS } from '../../../types/projects.types';
+import { ButtonLinkComponent } from '../../../components/btns/button-link-component/button-link-component';
+import { LucideAngularModule, ArrowLeft, ArrowRight } from 'lucide-angular';
 
 @Component({
   selector: 'app-projects',
-  imports: [],
+  imports: [ButtonLinkComponent, LucideAngularModule],
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })
@@ -18,6 +17,7 @@ export class Projects implements AfterViewInit {
 
   projects = PROJECTS_ITEMS;
   activeProjectIndex = 0;
+  icons = { ArrowLeft, ArrowRight };
 
   constructor(private ngZone: NgZone) {}
 
@@ -54,13 +54,13 @@ export class Projects implements AfterViewInit {
         this.goToIndex(this.activeProjectIndex + 1);
         return false;
       }
-      return true; // era o último, libera pra próxima seção
+      return true;
     } else {
       if (!this.isFirst) {
         this.goToIndex(this.activeProjectIndex - 1);
         return false;
       }
-      return true; // era o primeiro, libera pra seção anterior
+      return true;
     }
   }
 
@@ -96,7 +96,7 @@ export class Projects implements AfterViewInit {
       const translateZ = -(1 - Math.cos(angleRad)) * RADIUS;
 
       // o card ativo fica reto, os laterais rotacionam apontando pro centro
-      const rotateY = offset * ANGLE_STEP * 0.6; // 60% do ângulo — mais sutil
+      const rotateY = offset * ANGLE_STEP * 0.6;
 
       const scale   = 1 - absOffset * 0.08;
       const opacity = 1 - absOffset * 0.3;
