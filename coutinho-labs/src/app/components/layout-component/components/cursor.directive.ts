@@ -71,6 +71,7 @@ export class CursorDirective implements OnInit, OnDestroy {
         transform: translate(-50%,-50%);
         will-change: transform;
         transition: opacity .15s;
+        box-shadow: 0 0 12px #7F77DD, 0 0 24px rgba(127,119,221,0.6);
       }
     `;
     this.doc.head.appendChild(style);

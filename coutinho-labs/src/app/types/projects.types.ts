@@ -1,5 +1,5 @@
-export type Languages = 'React' | 'Angular' | 'TypeScript' | 'JavaScript' | 'HTML' | 'CSS' | 'SCSS' | 'JavaScript' | 'Python' | 'Java';
-export type Tools = 'Git' | 'Docker' | 'Postman' | 'Trello' | 'ClickUp' | 'Agile Methodology';
+export type Languages = 'React' | 'Angular' | 'TypeScript' | 'JavaScript' | 'HTML' | 'CSS' | 'SCSS' | 'Tailwind' | 'JavaScript' | 'Python' | 'Java';
+export type Tools = 'Git' | 'Docker' | 'Postman' | 'Trello' | 'ClickUp' | 'Scrum' | 'Inteligência Artificial' | 'Figma' | 'VS Code';
 
 export type ProjectsType = {
   id?: number;
@@ -14,80 +14,80 @@ export type ProjectsType = {
 export const PROJECTS_ITEMS: ProjectsType[] = [
   {
     id: 1,
-    title: 'PROJETO-1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Her Tech Rise',
+    description: 'O Her Tech Rise é uma plataforma desenvolvida como projeto acadêmico para a disciplina de Engenharia de Software, com o objetivo de fomentar a inclusão, o networking e o empoderamento de mulheres na área de tecnologia.',
     languages: [
-      'Angular', 'TypeScript', 'SCSS'
+      'React', 'Tailwind', 'JavaScript'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'Trello', 'Scrum', 'Figma', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://cynthiapinheiro.ifce.edu.br/hertechrise/',
     imageUrl: 'https://example.com/image.jpg'
   },
   {
     id: 2,
-    title: 'PROJETO-2',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Nosso Contar ',
+    description: 'Uma plataforma lúdica, acessível e interativa que ensina Libras por meio de vídeos educativos, trilhas de aprendizado, histórias infantis e jogos de memória, promovendo o aprendizado de forma envolvente e significativa.',
     languages: [
-      'Angular', 'TypeScript', 'SCSS'
+      'React', 'Tailwind', 'JavaScript'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'Scrum', 'Figma', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://nosso-contar.vercel.app/',
     imageUrl: 'https://example.com/image.jpg'
   },
   {
     id: 3,
-    title: 'PROJETO-3',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Calculadora Multiuso',
+    description: 'Projeto de calculadora multiuso desenvolvida com HTML, CSS e JavaScript, com foco em experiência do usuário (UX), design futurista e organização visual consistente. O objetivo é concentrar diferentes tipos de cálculo em uma única interface clara, moderna e intuitiva.',
     languages: [
-      'Angular', 'TypeScript', 'SCSS'
+      'HTML', 'CSS', 'JavaScript'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'Figma', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://github.com/laiscoutinho/calculadora',
     imageUrl: 'https://example.com/image.jpg'
   },
   {
     id: 4,
-    title: 'PROJETO-4',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Boamente',
+    description: 'Boamente é uma ferramenta que utiliza IA e processamento de linguagem para monitorar sinais de ideação suicida, coletando textos via teclado virtual e armazenando apenas classificações para garantir a privacidade. Os dados são exibidos em dashboards intuitivos, permitindo acompanhamento em tempo real e intervenções precoces por profissionais de saúde mental.',
     languages: [
-      'Angular', 'TypeScript', 'SCSS'
+      'HTML', 'CSS', 'React', 'JavaScript', 'Python'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'Scrum', 'Inteligência Artificial', 'Figma', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://boamente-frontend.vercel.app/',
     imageUrl: 'https://example.com/image.jpg'
   },
   {
     id: 5,
-    title: 'PROJETO-5',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Hearted',
+    description: 'Em breve.',
     languages: [
       'Angular', 'TypeScript', 'SCSS'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'Docker', 'Postman', 'Inteligência Artificial', 'Figma', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://github.com/laiscoutinho/hearted',
     imageUrl: 'https://example.com/image.jpg'
   },
   {
     id: 6,
-    title: 'PROJETO-6',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Sorteio Amigo Secreto',
+    description: 'A aplicação permite criar uma lista de participantes e realizar um sorteio aleatório para definir o amigo secreto.',
     languages: [
-      'Angular', 'TypeScript', 'SCSS'
+      'HTML', 'CSS', 'JavaScript'
     ],
     tools: [
-      'Git', 'Docker', 'Postman'
+      'Git', 'VS Code'
     ],
-    link: 'https://example.com',
+    link: 'https://laiscoutinho.github.io/secret-friend/',
     imageUrl: 'https://example.com/image.jpg'
   },
 ];
