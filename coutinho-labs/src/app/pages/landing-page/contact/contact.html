@@ -1,18 +1,41 @@
 <div class="contact-container">
-  <p>Vamos construir!</p>
 
-  <h2>Tem uma ideia? O lab está aberto.</h2>
-  <p>Se quiser colaborar, contratar ou só trocar uma ideia sobre o que está sendo construído aqui — entre em contato por meio do formulário abaixo.</p>
+  <div class="contact-info">
+    <p class="label">Vamos construir?</p>
+    <h2>Tem uma ideia, projeto ou problema pra resolver?</h2>
+    <p class="subtitle">Posso ajudar a transformar isso em um sistema funcional. Se quiser colaborar, contratar ou entender melhor como trabalho — é só mandar uma mensagem.</p>
+
+    <div class="contact-hints">
+      <div class="hint">
+        <lucide-icon name="items.zap" [size]="16" />
+        <span>Resposta em até 24h</span>
+      </div>
+      <div class="hint">
+        <lucide-icon name="items.lock" [size]="16" />
+        <span>Suas informações são privadas</span>
+      </div>
+    </div>
+  </div>
 
   <div class="form-container">
-    <form action="">
-      <input type="text" placeholder="Seu nome" required>
-      <input type="email" placeholder="Seu email" required>
-      <textarea placeholder="Sua mensagem" required></textarea>
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" placeholder="Como posso te chamar?" />
+    </div>
 
-      <app-button-component variant="lavanda">
-        Enviar
-      </app-button-component>
-    </form>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="seu@email.com" />
+    </div>
+
+    <div class="form-group">
+      <label>Mensagem</label>
+      <textarea rows="5" placeholder="Conta um pouco sobre o que você tem em mente..."></textarea>
+    </div>
+
+    <app-button-component variant="lavanda">
+      Iniciar projeto
+    </app-button-component>
   </div>
+
 </div>

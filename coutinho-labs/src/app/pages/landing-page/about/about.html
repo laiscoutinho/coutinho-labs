@@ -1,9 +1,15 @@
 <div class="about-container">
   <p>Sobre o Lab</p>
 
-  <h2>Construído por uma pessoa. Feito pra qualquer um usar.</h2>
+  <h2>Construído por uma pessoa. Pensado pra qualquer um usar.</h2>
 
-  <p>Coutinho Lab's é onde experimentos viram produtos. Cada projeto aqui nasce de uma ideia real, é construído com tecnologia de verdade e entregue pra você explorar — sem precisar entender de código pra isso.</p>
+  <p>Coutinho Lab's é um ecossistema independente de tecnologia — onde ideias são testadas, desenvolvidas e entregues como sistemas reais.</p>
 
-  <p>Por trás do lab: Laís Coutinho, desenvolvedora com foco em sistemas inteligentes, IA e experiências digitais que fazem sentido pra quem usa.</p>
+  <p>Cada projeto nasce de um problema concreto, é construído com tecnologia de verdade e publicado para ser explorado. Você não precisa entender de código pra usar. Mas se entender, vai perceber o cuidado em cada decisão.</p>
+
+  <app-button-link-component
+    text="Explorar projetos"
+    href="#projects"
+    (navigateTo)="navigateTo.emit($event)"
+  />
 </div>

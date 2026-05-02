@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { ButtonComponent } from '../../../components/btns/button-component/button-component';
 
 
@@ -11,6 +11,14 @@ import { ButtonComponent } from '../../../components/btns/button-component/butto
 
 export class HeroSection {
 
+  @Output() navigateTo = new EventEmitter<string>();
 
+  goToProjects() {
+    this.navigateTo.emit('projects');
+  }
+
+  goToContact() {
+    this.navigateTo.emit('contact');
+  }
 
 }

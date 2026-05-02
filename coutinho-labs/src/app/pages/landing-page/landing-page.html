@@ -1,21 +1,15 @@
 <div class="landingpage-container">
 
   <section id="home" class="section">
-    <app-hero-section></app-hero-section>
+    <app-hero-section (navigateTo)="scrollTo($event)"></app-hero-section>
   </section>
 
   <section id="about" class="section">
-    <app-about></app-about>
+    <app-about (navigateTo)="scrollTo($event)"></app-about>
   </section>
 
   <section id="about-founder" class="section">
     <app-founder></app-founder>
-
-    <div class="founder-quote">
-      <h3>"Software não é produto — é experiência. Cada projeto aqui foi construído pra que você entre, explore e saia sentindo que tecnologia pode ser sua."</h3>
-      <p>Laís Coutinho, founder do <span class="wordmark">@Coutinho Lab's</span></p>
-    </div>
-
   </section>
 
   <section id="projects" class="section projects-section">
