@@ -1,19 +1,25 @@
 <div class="hero-container">
-  <p class="wordmark">Coutinho Lab's</p>
+  <h1 class="hero-title">
+    Um laboratório onde<br>
+    ideias viram <span class="highlight">sistemas.</span>
+  </h1>
 
-  <h1>Um laboratório onde ideias viram sistemas.</h1>
-  <p>Projetos reais de software — exploráveis, acessíveis e construídos pra resolver problemas de verdade.</p>
+  <p class="hero-sub">
+    Projetos reais de software — exploráveis, acessíveis<br>
+    e construídos pra resolver problemas de verdade.
+  </p>
 
-  <p>Desenvolvido pra transformar sua relação com tecnologia.</p>
-
-  <div class="btn-call2action">
-    <app-button-component variant="white" (click)="goToProjects()">
-      Explorar projetos
+  <div class="hero-actions">
+    <app-button-component href="#contact" variant="outline" [showIcon]="false">
+      Entrar no Lab
     </app-button-component>
 
-    <app-button-component variant="lavanda" (click)="goToContact()">
-      Entrar no Lab
+    <app-button-component href="/projects" variant="white" >
+      <span>Ver projetos</span>
     </app-button-component>
   </div>
 
+  <div class="scroll-hint" [class.hidden]="scrolled">
+    <span class="scroll-line"></span>
+  </div>
 </div>
