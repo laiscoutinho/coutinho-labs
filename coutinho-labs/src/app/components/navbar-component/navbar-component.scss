@@ -1,10 +1,9 @@
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   width: 100%;
-  max-width:1150px;
   height: var(--space-lg);
   padding: var(--space-md) var(--space-xl);
 
@@ -37,6 +36,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &:has(.nav-links.empty) {
+    justify-content: center;
+    padding-right: 32px;
+  }
 }
 
 .left-section {
@@ -135,6 +139,10 @@
     &.active::after {
       width: 100%;
       background: var(--color-branco-puro);
+    }
+
+    &:empty  {
+      display: none;
     }
   }
 }
