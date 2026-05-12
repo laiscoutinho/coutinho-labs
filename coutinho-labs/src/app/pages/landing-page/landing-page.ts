@@ -1,4 +1,5 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy, inject } from '@angular/core';
+import { LucideAngularModule, Mail } from 'lucide-angular';
 import { HeroSection } from './hero-section/hero-section';
 import { About } from './about/about';
 import { Projects } from './projects/projects';
@@ -8,15 +9,39 @@ import { Questions } from './questions/questions';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [HeroSection, About, Founder, Projects, Questions, Contact],
+  imports: [LucideAngularModule, HeroSection, About, Founder, Projects, Questions, Contact],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.scss',
 })
-export class LandingPage {
+export class LandingPage implements OnInit, OnDestroy {
 
-  @ViewChild(Projects) projectsComponent!: Projects;
+  icons = { Mail };
+
+  // IDs das seções na ordem em que aparecem no DOM
+  private readonly SECTION_IDS = [
+    'home',
+    'about',
+    'about-founder',
+    'projects',
+    'questions',
+    'contact',
+  ];
 
   private isScrolling = false;
+  private readonly SCROLL_COOLDOWN = 800;
+  private wheelListener!: (e: WheelEvent) => void;
+  private zone = inject(NgZone);
+
+  ngOnInit() {
+    this.zone.runOutsideAngular(() => {
+      this.wheelListener = (e: WheelEvent) => this.onWheel(e);
+      window.addEventListener('wheel', this.wheelListener, { passive: true });
+    });
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('wheel', this.wheelListener);
+  }
 
   scrollTo(id: string) {
     const el = document.getElementById(id);
@@ -24,48 +49,56 @@ export class LandingPage {
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  getCurrentSectionIndex(sections: NodeListOf<Element>): number {
-    let index = 0;
-    sections.forEach((section, i) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 150 && rect.bottom >= 150) index = i;
+  private onWheel(e: WheelEvent) {
+    if (this.isScrolling) return;
+
+    const current = this.getMostVisibleSection();
+    if (current === -1) return;
+
+    const direction = e.deltaY > 0 ? 1 : -1;
+    const target    = current + direction;
+
+    if (target < 0 || target >= this.SECTION_IDS.length) return;
+
+    const targetEl = document.getElementById(this.SECTION_IDS[target]);
+    if (!targetEl) return;
+    if (!this.isSectionWellAligned(this.SECTION_IDS[current])) return;
+
+    this.isScrolling = true;
+    this.zone.run(() => {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    return index;
+
+    setTimeout(() => {
+      this.isScrolling = false;
+    }, this.SCROLL_COOLDOWN);
   }
 
-  @HostListener('wheel', ['$event'])
-  onWheel(event: WheelEvent) {
-    const sections = document.querySelectorAll('.section');
-    const current = this.getCurrentSectionIndex(sections);
-    const currentSection = sections[current] as HTMLElement;
-    const isProjects = currentSection.id === 'projects';
-    const direction = event.deltaY > 0 ? 'down' : 'up';
+  private getMostVisibleSection(): number {
+    let bestIdx     = -1;
+    let bestVisible = 0;
+    const vh = window.innerHeight;
 
-    // delega pro componente de projetos
-    if (isProjects && this.projectsComponent) {
-      const canLeave = this.projectsComponent.handleScroll(direction);
-      if (!canLeave) {
-        event.preventDefault();
-        return;
+    this.SECTION_IDS.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rect    = el.getBoundingClientRect();
+      const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      if (visible > bestVisible) {
+        bestVisible = visible;
+        bestIdx     = i;
       }
-    }
-
-    if (this.isScrolling) return;
-    event.preventDefault();
-    this.isScrolling = true;
-
-    let nextIndex = current;
-    if (direction === 'down') {
-      nextIndex = Math.min(current + 1, sections.length - 1);
-    } else {
-      nextIndex = Math.max(current - 1, 0);
-    }
-
-    (sections[nextIndex] as HTMLElement).scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
     });
 
-    setTimeout(() => { this.isScrolling = false; }, 700);
+    return bestIdx;
+  }
+
+  private isSectionWellAligned(id: string): boolean {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const rect    = el.getBoundingClientRect();
+    const vh      = window.innerHeight;
+    const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+    return visible / vh >= 0.6;
   }
 }

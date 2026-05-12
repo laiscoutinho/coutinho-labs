@@ -1,15 +1,18 @@
+// landing-page.scss — mantém tudo do original, só remove o lock de scroll
+
 .landingpage-container {
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
-  padding: var(--space-2xl);
+  padding-top: var(--navbar-height);
+  padding: var(--space-3xl) 0;
+  scroll-behavior: smooth;
+  scroll-snap-type: none;
 }
 
 .section {
   min-height: 100vh;
-
   scroll-snap-align: start;
-  scroll-margin-top: 120px;
+  scroll-margin-top: var(--navbar-height);
   transition: all 0.4s ease;
 }
 
@@ -17,4 +20,45 @@
 .section.active {
   opacity: 1;
   transform: scale(1);
+}
+
+// seção de projetos: sem height fixo, sem overflow:hidden
+// o bento se auto-dimensiona pelo conteúdo
+.projects-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+// FAB — mantido exatamente igual ao original
+.fab-contact {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 100;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(127, 119, 221, 0.35);
+  background: rgba(61, 59, 142, 0.4);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-nevoa);
+
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(61, 59, 142, 0.75);
+    border-color: rgba(127, 119, 221, 0.7);
+    transform: scale(1.08);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
 }

@@ -1,5 +1,9 @@
 <div class="landingpage-container">
 
+  <button class="fab-contact" aria-label="Ir para contato" (click)="scrollTo('contact')">
+    <lucide-icon [img]="icons.Mail" [size]="20"></lucide-icon>
+  </button>
+
   <section id="home" class="section">
     <app-hero-section (navigateTo)="scrollTo($event)"></app-hero-section>
   </section>
