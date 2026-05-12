@@ -1,6 +1,12 @@
 export type Languages = 'React' | 'Angular' | 'TypeScript' | 'JavaScript' | 'HTML' | 'CSS' | 'SCSS' | 'Tailwind' | 'JavaScript' | 'Python' | 'Java';
 export type Tools = 'Git' | 'Docker' | 'Postman' | 'Trello' | 'ClickUp' | 'Scrum' | 'Inteligência Artificial' | 'Figma' | 'VS Code';
 
+export type ArticleLink = {
+  title: string;
+  url: string;
+  publishedAt?: string; 
+};
+
 export type ProjectsType = {
   id?: number;
   title: string;
@@ -8,6 +14,7 @@ export type ProjectsType = {
   languages: Languages[];
   tools: Tools[];
   link?: string;
+  articles?: ArticleLink[];
   imageUrl?: string;
 };
 
