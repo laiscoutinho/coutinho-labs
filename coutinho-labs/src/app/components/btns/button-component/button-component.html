@@ -1,9 +1,16 @@
-<button
-  class="btn"
-  [class.btn--lavanda]="variant === 'lavanda'"
-  [class.btn--white]="variant === 'white'"
-  [class.btn--full]="fullWidth"
->
-  <ng-content></ng-content>
-</button>
+<a
+  [ngClass]="classes"
+  [href]="href"
+  [target]="target"
+  [attr.rel]="rel">
 
+  <ng-content />
+
+  @if (showIcon) {
+    <lucide-icon
+      [img]="icons.MoveUpRight"
+      [size]="14"
+      aria-hidden="true" />
+  }
+
+</a>
