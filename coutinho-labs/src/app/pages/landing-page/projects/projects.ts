@@ -1,115 +1,64 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LucideAngularModule, ArrowRight } from 'lucide-angular';
 import { PROJECTS_ITEMS } from '../../../types/projects.types';
-import { ButtonLinkComponent } from '../../../components/btns/button-link-component/button-link-component';
-import { LucideAngularModule, ArrowLeft, ArrowRight } from 'lucide-angular';
+import { ProjectCardComponent } from '../../../components/cards/project-card-component/project-card-component';
+import { ButtonComponent } from '../../../components/btns/button-component/button-component';
 
 @Component({
   selector: 'app-projects',
-  imports: [ButtonLinkComponent, LucideAngularModule],
+  standalone: true,
+  imports: [CommonModule, ProjectCardComponent, LucideAngularModule, ButtonComponent],
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })
 export class Projects implements AfterViewInit {
 
-  @ViewChild('scrollRef') scrollRef!: ElementRef<HTMLElement>;
-  @Output() projectsEnd = new EventEmitter<void>();    // último projeto, scroll down
-  @Output() projectsStart = new EventEmitter<void>();  // primeiro projeto, scroll up
+  readonly allProjects      = PROJECTS_ITEMS;
+  readonly showcaseProjects = this.allProjects.slice(0, 3);
+  readonly hiddenCount      = Math.max(0, this.allProjects.length - 3);
 
-  projects = PROJECTS_ITEMS;
-  activeProjectIndex = 0;
-  icons = { ArrowLeft, ArrowRight };
+  isLoading = true;
+  icons = { ArrowRight };
 
-  constructor(private ngZone: NgZone) {}
+  @ViewChildren('card') cardRefs!: QueryList<ElementRef<HTMLElement>>;
+
+  constructor(private zone: NgZone) {}
 
   ngAfterViewInit() {
-    // garante que começa no 1º card centralizado
-    setTimeout(() => this.goToIndex(0, false), 50);
+    setTimeout(() => {
+      this.isLoading = false;
+      setTimeout(() => this.bindCardListeners(), 50);
+    }, 800);
   }
 
-  get isFirst() { return this.activeProjectIndex === 0; }
-  get isLast()  { return this.activeProjectIndex === this.projects.length - 1; }
+  private bindCardListeners() {
+    this.cardRefs.forEach((ref) => {
+      const el = ref.nativeElement;
+      this.zone.runOutsideAngular(() => {
 
-  prev() {
-    if (this.isFirst) {
-      this.projectsStart.emit();
-      return;
-    }
-    this.goToIndex(this.activeProjectIndex - 1);
-  }
+        el.addEventListener('mousemove', (e: MouseEvent) => {
+          const rect = el.getBoundingClientRect();
+          const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+          const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+          // hover: endireita + leve tilt responsivo ao mouse
+          const rX   = (-dy * 5).toFixed(2);
+          const rY   = ( dx * 5).toFixed(2);
+          el.style.transform = `perspective(900px) rotateX(${rX}deg) rotateY(${rY}deg) scale(1.03)`;
+          // luz interna segue o mouse
+          const px = (((e.clientX - rect.left) / rect.width)  * 100).toFixed(1) + '%';
+          const py = (((e.clientY - rect.top)  / rect.height) * 100).toFixed(1) + '%';
+          el.style.setProperty('--mx', px);
+          el.style.setProperty('--my', py);
+        });
 
-  next() {
-    if (this.isLast) {
-      this.projectsEnd.emit();
-      return;
-    }
-    this.goToIndex(this.activeProjectIndex + 1);
-  }
-
-  // chamado pelo landing-page via @ViewChild
-  handleScroll(direction: 'up' | 'down'): boolean {
-    // retorna false = evento consumido (fica na seção)
-    // retorna true  = pode trocar de seção
-    if (direction === 'down') {
-      if (!this.isLast) {
-        this.goToIndex(this.activeProjectIndex + 1);
-        return false;
-      }
-      return true;
-    } else {
-      if (!this.isFirst) {
-        this.goToIndex(this.activeProjectIndex - 1);
-        return false;
-      }
-      return true;
-    }
-  }
-
-  goToIndex(index: number, _animate = true) {
-    this.activeProjectIndex = index;
-    this.applyTransforms();
-  }
-
-  applyTransforms() {
-    const el = this.scrollRef?.nativeElement;
-    if (!el) return;
-
-    const cards = el.querySelectorAll<HTMLElement>('.project-card');
-
-    const ANGLE_STEP = 40;   // graus entre cada card no arco
-    const RADIUS = 600;      // raio do disco (quanto mais alto, mais suave a curva)
-
-    cards.forEach((card, i) => {
-      const offset = i - this.activeProjectIndex;
-      const absOffset = Math.abs(offset);
-
-      // limita a 3 cards visíveis de cada lado
-      if (absOffset > 3) {
-        card.style.opacity = '0';
-        card.style.pointerEvents = 'none';
-        return;
-      }
-
-      const angleRad = (offset * ANGLE_STEP * Math.PI) / 180;
-
-      // posição no arco: sin move X, (1 - cos) afunda em Z
-      const translateX = Math.sin(angleRad) * RADIUS;
-      const translateZ = -(1 - Math.cos(angleRad)) * RADIUS;
-
-      // o card ativo fica reto, os laterais rotacionam apontando pro centro
-      const rotateY = offset * ANGLE_STEP * 0.6;
-
-      const scale   = 1 - absOffset * 0.08;
-      const opacity = 1 - absOffset * 0.3;
-
-      card.style.transform = `
-        translateX(${translateX}px)
-        translateZ(${translateZ}px)
-        rotateY(${rotateY}deg)
-        scale(${Math.max(scale, 0.65)})
-      `;
-      card.style.opacity = String(Math.max(opacity, 0.15));
-      card.style.zIndex  = String(10 - absOffset);
-      card.style.pointerEvents = absOffset === 0 ? 'all' : 'none';
+        el.addEventListener('mouseleave', () => {
+          // volta ao tilt padrão (definido pelo CSS via --tilt-x/y)
+          const tx = el.dataset['tiltX'] ?? '0';
+          const ty = el.dataset['tiltY'] ?? '0';
+          el.style.transform = `perspective(900px) rotateX(${tx}deg) rotateY(${ty}deg) scale(1)`;
+        });
+      });
     });
   }
 }
