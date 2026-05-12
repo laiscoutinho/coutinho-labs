@@ -1,0 +1,101 @@
+<article
+  class="project-card"
+  [class.is-loading]="isLoading"
+  [attr.aria-label]="isLoading ? 'Carregando projeto' : project?.title"
+  role="article">
+
+  <!-- SKELETON  -->
+  @if (isLoading) {
+    <div class="sk-image" aria-hidden="true"></div>
+    <div class="card-body">
+      <div class="sk-line sk-title"         aria-hidden="true"></div>
+      <div class="sk-line sk-text"          aria-hidden="true"></div>
+      <div class="sk-line sk-text sk-short" aria-hidden="true"></div>
+      <div class="sk-tags"                  aria-hidden="true">
+        <div class="sk-tag"></div>
+        <div class="sk-tag sk-tag--sm"></div>
+        <div class="sk-tag"></div>
+      </div>
+      <div class="sk-btn"                   aria-hidden="true"></div>
+    </div>
+  }
+
+  <!--  CONTEÚDO  -->
+  @if (!isLoading && project) {
+
+    @if (hasImage) {
+      <div class="card-image-wrap" [class.loaded]="imageLoaded">
+        <img
+          class="card-image"
+          [src]="project!.imageUrl"
+          [alt]="project!.title"
+          loading="lazy"
+          (load)="onImageLoad()"
+          (error)="onImageError()" />
+        <div class="card-image-overlay" aria-hidden="true"></div>
+      </div>
+    }
+
+    <div class="card-body" [class.no-image]="!hasImage">
+
+      <h3 class="card-title">{{ project!.title }}</h3>
+
+      @if (hasDesc) {
+        <p class="card-desc">{{ project!.description }}</p>
+      }
+
+      @if (hasLanguages) {
+        <div class="tag-group" role="list" aria-label="Linguagens utilizadas">
+          @for (lang of project!.languages; track lang) {
+            <span class="tag tag--lang" role="listitem">{{ lang }}</span>
+          }
+        </div>
+      }
+
+      @if (hasTools) {
+        <div class="tag-group" role="list" aria-label="Ferramentas utilizadas">
+          @for (tool of project!.tools; track tool) {
+            <span class="tag tag--tool" role="listitem">{{ tool }}</span>
+          }
+        </div>
+      }
+
+      @if (hasArticles) {
+        <div class="articles" role="list" aria-label="Publicações relacionadas">
+          @for (article of project!.articles; track article.url) {
+            <a
+              class="article-link"
+              [href]="article.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="listitem"
+              [attr.aria-label]="'Ler: ' + article.title">
+              <span class="article-title">{{ article.title }}</span>
+              @if (article.publishedAt) {
+                <time class="article-date" [attr.datetime]="article.publishedAt">
+                  {{ article.publishedAt }}
+                </time>
+              }
+            </a>
+          }
+        </div>
+      }
+
+      @if (hasLink) {
+        <a
+          class="card-cta"
+          [href]="project!.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          [attr.aria-label]="'Ver projeto: ' + project!.title">
+          <span>Ver projeto</span>
+          <lucide-icon [img]="icons.MoveUpRight" [size]="13" aria-hidden="true" />
+        </a>
+      }
+
+    </div>
+  }
+
+  <div class="card-glow" aria-hidden="true"></div>
+
+</article>
